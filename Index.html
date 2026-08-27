@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MoneyMap Privacy Policy</title>
+
+    <meta name="description"
+          content="Privacy Policy for the MoneyMap personal finance and wealth management application by WidgetTree.">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #222;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #111827;
+            font-size: 32px;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: #111827;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin-top: 25px;
+            color: #374151;
+            font-size: 18px;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .effective-date {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 25px;
+        }
+
+        .contact {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        a {
+            color: #2563eb;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                padding: 25px 20px;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>MoneyMap Privacy Policy</h1>
+
+    <p class="effective-date">
+        <strong>Effective Date:</strong> August 27, 2026
+    </p>
+
+    <p>
+        Welcome to <strong>MoneyMap</strong> ("we," "our," or "us"),
+        published by <strong>WidgetTree</strong>. We are committed to
+        protecting your privacy. This Privacy Policy explains how MoneyMap
+        handles your information when you use our mobile application
+        (the "App").
+    </p>
+
+    <p>
+        MoneyMap is a local-first personal finance and wealth management
+        application. Unlike traditional financial apps,
+        <strong>we do not run proprietary servers or databases to store
+        your financial information.</strong>
+        All your data stays under your direct control, stored either locally
+        on your device or in your personal Google Drive account.
+    </p>
+
+
+    <div class="section">
+
+        <h2>1. Summary of Key Principles</h2>
+
+        <ul>
+
+            <li>
+                <strong>Local-First Storage:</strong>
+                Your financial transaction records, accounts, goals, and
+                portfolio details are stored locally on your device using
+                encrypted/secure local storage.
+            </li>
+
+            <li>
+                <strong>No Server Storage:</strong>
+                We do not host any remote databases. There are no user
+                signup screens, login credentials, or profiles stored on
+                our servers.
+            </li>
+
+            <li>
+                <strong>Google Drive Backups (User-Owned):</strong>
+                Backups are uploaded directly from your device to your
+                personal Google Drive space. We do not have access to these
+                files outside of the permissions you grant directly to the App.
+            </li>
+
+            <li>
+                <strong>On-Device SMS Parsing:</strong>
+                If you enable the transaction wallet feature, the App reads
+                transactional SMS alerts from recognized Indian banks locally
+                on your device. SMS content is never transmitted to us or
+                any third-party servers.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>2. Information We Access and How We Use It</h2>
+
+        <h3>A. SMS Permissions &amp; Transaction Detection</h3>
+
+        <ul>
+
+            <li>
+                <strong>Permissions Requested:</strong>
+                The App requests read access to your SMS messages
+                (<code>Permission.sms</code>).
+            </li>
+
+            <li>
+                <strong>Purpose:</strong>
+                To automatically detect, parse, and catalog transaction
+                alerts, bank account balances, and credit/debit notifications
+                from Indian financial institutions.
+            </li>
+
+            <li>
+                <strong>How it works:</strong>
+
+                <ul>
+
+                    <li>
+                        The scanning process runs
+                        <strong>entirely on your device.</strong>
+                    </li>
+
+                    <li>
+                        The App uses a strict whitelist of known Indian bank
+                        sender IDs (e.g., SBI, HDFC, ICICI, Axis).
+                    </li>
+
+                    <li>
+                        <strong>Only transactional SMS messages</strong>
+                        matching these whitelisted sender patterns are parsed.
+                        Personal, OTP, or non-financial messages are ignored
+                        and discarded immediately.
+                    </li>
+
+                    <li>
+                        <strong>Zero transmission:</strong>
+                        The text of your SMS messages is never sent to our
+                        servers or any third parties.
+                    </li>
+
+                </ul>
+
+            </li>
+
+        </ul>
+
+
+        <h3>B. Google Drive &amp; Google OAuth</h3>
+
+        <ul>
+
+            <li>
+                <strong>Permissions Requested:</strong>
+                When you choose to back up your data, the App requests
+                permission to access your Google Drive using Google OAuth
+                with the following scopes:
+
+                <ul>
+
+                    <li>
+                        <code>https://www.googleapis.com/auth/drive.file</code>
+                        <br>
+                        View and manage Google Drive files and folders that
+                        you have opened or created with this app.
+                    </li>
+
+                    <li>
+                        <code>https://www.googleapis.com/auth/userinfo.email</code>
+                        <br>
+                        To display the connected Google email address in the
+                        sync status UI.
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <li>
+                <strong>Purpose:</strong>
+
+                <ul>
+
+                    <li>
+                        To automatically create a folder named
+                        <code>MoneyMap</code> in the root of your Google Drive.
+                    </li>
+
+                    <li>
+                        To save your financial data as a compressed backup
+                        file (<code>backup.mmbak</code>), containing your
+                        accounts, transactions, categories, and goals in
+                        CSV format.
+                    </li>
+
+                    <li>
+                        To restore your data automatically on return visits
+                        or when installing the App on a new device.
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <li>
+                <strong>Security:</strong>
+                Google Drive acts as your personal cloud storage. The App
+                only accesses the files it creates itself. We do not store,
+                view, or control your OAuth credentials or drive files.
+            </li>
+
+        </ul>
+
+
+        <h3>C. Financial &amp; Investment Data</h3>
+
+        <ul>
+
+            <li>
+                <strong>Asset Tracking:</strong>
+                You can log and track assets, mutual funds, stocks, and
+                liabilities in the App.
+            </li>
+
+            <li>
+                <strong>Market Price Synced Data:</strong>
+                The App fetches current mutual fund NAVs and stock bhavcopy
+                data from public endpoints. This data is downloaded to your
+                device to calculate portfolio valuation. None of your
+                portfolio holdings or asset counts are transmitted to
+                external servers.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>3. Data Storage and Security</h2>
+
+        <p>
+            Because MoneyMap is designed as a local-first application,
+            security is maintained through the following design:
+        </p>
+
+        <ul>
+
+            <li>
+                <strong>Device Encryption:</strong>
+                Your local financial records are stored using safe local
+                database formats (Hive / Shared Preferences) protected by
+                standard iOS/Android operating system sandboxing.
+            </li>
+
+            <li>
+                <strong>Cloud Encryption:</strong>
+                Your backups are stored in your Google Drive, secured by
+                Google's industry-standard cloud security and authentication
+                protocols.
+            </li>
+
+            <li>
+                <strong>No Third-Party Analytics:</strong>
+                We do not track your financial habits, net worth, or app
+                interactions using tracking software.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>4. Sharing of Information</h2>
+
+        <p>
+            <strong>
+                We do not sell, rent, trade, or share your personal or
+                financial information.
+            </strong>
+        </p>
+
+        <p>
+            Because we do not collect or store your information on our own
+            servers, your data is not intentionally shared with third parties,
+            advertising networks, or other external services by MoneyMap.
+            Your data resides on your physical device and, when you choose
+            to use backup functionality, your personal Google Drive.
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>5. Children's Privacy</h2>
+
+        <p>
+            Our services are not directed to children under the age of 13.
+            We do not knowingly collect personal information from children.
+            Since no personal data is collected or transmitted to us, parents
+            can be assured that their children's data remains entirely local
+            to the device.
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>6. Changes to this Privacy Policy</h2>
+
+        <p>
+            We may update this Privacy Policy from time to time to reflect
+            changes in the App's features or legal requirements. Any updates
+            will be made available directly in the App repository and settings.
+            We encourage you to review this policy periodically.
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>7. Contact Us</h2>
+
+        <p>
+            If you have any questions or feedback regarding this Privacy Policy
+            or our privacy practices, please contact us at:
+        </p>
+
+        <div class="contact">
+
+            <strong>Publisher:</strong> WidgetTree
+            <br>
+
+            <strong>Email:</strong>
+            <a href="mailto:widgettree.dev@gmail.com">
+                widgettree.dev@gmail.com
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        © 2026 WidgetTree. All rights reserved.
+    </footer>
+
+</div>
+
+</body>
+</html>
