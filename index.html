@@ -124,7 +124,7 @@
     <h1>MoneyMap Privacy Policy</h1>
 
     <p class="effective-date">
-        <strong>Effective Date:</strong> August 27, 2026
+        <strong>Effective Date:</strong> September 1, 2026
     </p>
 
     <p>
@@ -173,11 +173,12 @@
             </li>
 
             <li>
-                <strong>On-Device SMS Parsing:</strong>
+                <strong>On-Device SMS Parsing (Optional Feature):</strong>
                 If you enable the transaction wallet feature, the App reads
                 transactional SMS alerts from recognized Indian banks locally
                 on your device. SMS content is never transmitted to us or
-                any third-party servers.
+                any third-party servers, and only the extracted transaction
+                details are retained — not the original message text.
             </li>
 
         </ul>
@@ -196,14 +197,34 @@
             <li>
                 <strong>Permissions Requested:</strong>
                 The App requests read access to your SMS messages
-                (<code>Permission.sms</code>).
+                (<code>android.permission.READ_SMS</code> and
+                <code>android.permission.RECEIVE_SMS</code>).
             </li>
 
             <li>
                 <strong>Purpose:</strong>
                 To automatically detect, parse, and catalog transaction
                 alerts, bank account balances, and credit/debit notifications
-                from Indian financial institutions.
+                from Indian financial institutions, so you don't have to
+                enter every transaction manually.
+            </li>
+
+            <li>
+                <strong>This feature is optional.</strong>
+                SMS-based transaction detection can be turned on or off at
+                any time from Settings. If disabled, you can continue using
+                MoneyMap by entering and managing transactions manually —
+                the App remains fully functional without SMS access.
+            </li>
+
+            <li>
+                <strong>User-controlled, on a per-user basis:</strong>
+                This setting is controlled solely by you, the individual
+                user, directly on your own device. It is not enabled by
+                default without your action, cannot be turned on remotely
+                by us or by anyone else, and your choice is specific to
+                your device/account — it is never applied to or inherited
+                by any other user.
             </li>
 
             <li>
@@ -213,7 +234,9 @@
 
                     <li>
                         The scanning process runs
-                        <strong>entirely on your device.</strong>
+                        <strong>entirely on your device.</strong> No SMS
+                        content is ever uploaded, transmitted, or sent to
+                        our servers or any third party.
                     </li>
 
                     <li>
@@ -224,14 +247,33 @@
                     <li>
                         <strong>Only transactional SMS messages</strong>
                         matching these whitelisted sender patterns are parsed.
-                        Personal, OTP, or non-financial messages are ignored
-                        and discarded immediately.
+                        Personal, OTP, promotional, or non-financial messages
+                        are ignored and are never read, stored, or processed
+                        by the App.
                     </li>
 
                     <li>
-                        <strong>Zero transmission:</strong>
-                        The text of your SMS messages is never sent to our
-                        servers or any third parties.
+                        <strong>What is stored:</strong> Only the extracted
+                        transaction fields — amount, date, merchant/sender
+                        name, and category — are saved to the App's local
+                        database. The original raw SMS text is not retained
+                        once these fields have been extracted.
+                    </li>
+
+                    <li>
+                        <strong>No use for ads or profiling:</strong>
+                        Data derived from SMS is used solely to display and
+                        organize your transactions within the App. It is
+                        never used for advertising, profiling, or any other
+                        purpose.
+                    </li>
+
+                    <li>
+                        <strong>Retention &amp; deletion:</strong> Extracted
+                        transaction records are kept locally until you delete
+                        them individually, clear the App's data, disable the
+                        SMS feature (which stops new detection but does not
+                        auto-delete past records), or uninstall the App.
                     </li>
 
                 </ul>
@@ -384,6 +426,12 @@
             advertising networks, or other external services by MoneyMap.
             Your data resides on your physical device and, when you choose
             to use backup functionality, your personal Google Drive.
+        </p>
+
+        <p>
+            SMS data specifically is never shared with, sold to, or
+            transmitted to any third-party server. All SMS parsing and
+            transaction detection happens locally on your device only.
         </p>
 
     </div>
