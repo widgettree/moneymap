@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - MoneyMap by WidgetTree</title>
+  <meta name="description" content="Terms of Service for MoneyMap, published by WidgetTree. Review our terms for using our local-first personal finance application.">
+  <meta name="author" content="WidgetTree">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --primary: #EA6506;
+      --primary-hover: #D85600;
+      --primary-glow: rgba(234, 101, 6, 0.28);
+      --accent-coral: #FF6B3D;
+      --accent-emerald: #10B981;
+
+      --bg-main: #0B0E14;
+      --bg-surface: #121824;
+      --bg-card: rgba(22, 30, 46, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(234, 101, 6, 0.35);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-subtle: #64748B;
+      --nav-bg: rgba(11, 14, 20, 0.88);
+      --badge-bg: rgba(234, 101, 6, 0.12);
+      --badge-border: rgba(234, 101, 6, 0.3);
+      --callout-bg: rgba(16, 185, 129, 0.08);
+      --callout-border: rgba(16, 185, 129, 0.25);
+    }
+
+    [data-theme="light"] {
+      --bg-main: #FBFBFA;
+      --bg-surface: #FFFFFF;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: rgba(241, 245, 249, 0.95);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-glow: rgba(234, 101, 6, 0.3);
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #94A3B8;
+      --nav-bg: rgba(251, 251, 250, 0.9);
+      --badge-bg: rgba(234, 101, 6, 0.08);
+      --badge-border: rgba(234, 101, 6, 0.25);
+      --callout-bg: rgba(16, 185, 129, 0.06);
+      --callout-border: rgba(16, 185, 129, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(234, 101, 6, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--primary-hover);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Header & Navigation                                                        */
+    /* -------------------------------------------------------------------------- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-logo:hover {
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px var(--primary-glow);
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-toggle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-coral) 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px var(--primary-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(234, 101, 6, 0.4);
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Content Layout                                                             */
+    /* -------------------------------------------------------------------------- */
+    .terms-wrapper {
+      padding-top: 130px;
+      padding-bottom: 90px;
+    }
+
+    .terms-card-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .terms-header {
+      margin-bottom: 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .terms-title {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .terms-meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .terms-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      padding: 44px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .terms-section {
+      margin-bottom: 42px;
+    }
+
+    .terms-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-section h2 {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .terms-section p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .terms-section ul {
+      margin: 12px 0 20px 24px;
+      color: var(--text-muted);
+    }
+
+    .terms-section li {
+      margin-bottom: 10px;
+      line-height: 1.65;
+    }
+
+    .terms-section strong {
+      color: var(--text-main);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Footer                                                                     */
+    /* -------------------------------------------------------------------------- */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 60px 0 32px;
+      margin-top: 80px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 48px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      max-width: 360px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 16px 0 16px;
+      line-height: 1.6;
+    }
+
+    .footer-contact {
+      font-size: 0.88rem;
+      color: var(--text-subtle);
+    }
+
+    .footer-contact a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .footer-nav-groups {
+      display: flex;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      color: var(--text-subtle);
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .terms-title {
+        font-size: 2.1rem;
+      }
+      .terms-body {
+        padding: 24px;
+      }
+      .footer-top {
+        flex-direction: column;
+        gap: 36px;
+      }
+      .footer-nav-groups {
+        gap: 40px;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="../index.html" class="brand-logo">
+          <div class="brand-mark">
+            <img src="../assets/images/logo.png" alt="MoneyMap Logo">
+          </div>
+          <div>
+            <span>MoneyMap</span>
+          </div>
+        </a>
+
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="../index.html" class="nav-link">Home</a></li>
+            <li><a href="../index.html#features" class="nav-link">Features</a></li>
+            <li><a href="../index.html#demo" class="nav-link">Live Demo</a></li>
+            <li><a href="../index.html#architecture" class="nav-link">Privacy Architecture</a></li>
+            <li><a href="../privacy/index.html" class="nav-link">Privacy Policy</a></li>
+            <li><a href="index.html" class="nav-link active" style="color: var(--primary);">Terms</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </button>
+          <a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <img src="../assets/images/playstore.png" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; display: block;">
+            <span>Google Play</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="terms-wrapper">
+    <div class="container">
+      <div class="terms-card-container">
+        <div class="terms-header">
+          <h1 class="terms-title">Terms of Service</h1>
+          <div class="terms-meta">
+            <span><strong>Effective Date:</strong> September 1, 2026</span>
+            <span><strong>Publisher:</strong> WidgetTree</span>
+            <span><strong>Contact:</strong> <a href="mailto:widgettree.dev@gmail.com">widgettree.dev@gmail.com</a></span>
+          </div>
+        </div>
+
+        <div class="terms-body">
+          <p>Welcome to <strong>MoneyMap</strong> (&ldquo;the App&rdquo;), published and maintained by <strong>WidgetTree</strong> (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;). By downloading, accessing, or using MoneyMap, you agree to be bound by these Terms of Service (&ldquo;Terms&rdquo;). If you do not agree to these Terms, please do not install or use the App.</p>
+
+          <section class="terms-section">
+            <h2>1. Description of Service & Architecture</h2>
+            <p>MoneyMap is a local-first personal finance tracking and wealth management mobile application. Unlike traditional cloud services:</p>
+            <ul>
+              <li>MoneyMap does not require you to create an account on WidgetTree servers.</li>
+              <li>All financial transaction data, account entries, budgets, and portfolio assets are stored locally on your device or in your personal Google Drive account.</li>
+              <li>WidgetTree does not operate remote databases storing your personal financial balances or transaction history.</li>
+            </ul>
+          </section>
+
+          <section class="terms-section">
+            <h2>2. User Responsibilities & Data Control</h2>
+            <p>Because your data is stored locally on your device:</p>
+            <ul>
+              <li><strong>Device Security:</strong> You are solely responsible for maintaining the physical and digital security of your device (e.g., using passcodes, biometric locks, and keeping operating system security patches updated).</li>
+              <li><strong>Backups:</strong> While MoneyMap provides automated and manual backup capabilities to your personal Google Drive, you are responsible for maintaining your Google account access and verifying regular backups. WidgetTree is not liable for data loss resulting from device damage, formatting, or operating system resets without a backup.</li>
+            </ul>
+          </section>
+
+          <section class="terms-section">
+            <h2>3. Permissions & Optional Features</h2>
+            <ul>
+              <li><strong>SMS Transaction Detection (Optional):</strong> If you choose to enable the SMS parser, the App scans transactional alerts from whitelisted Indian banks directly on your device. You may disable this permission at any time in Settings.</li>
+              <li><strong>Google Drive Integration (Optional):</strong> If you enable cloud backup, you authorize the App to store an encrypted backup file (<span style="font-family: var(--font-mono);">backup.mmbak</span>) in your Google Drive storage. You retain complete ownership over these files.</li>
+            </ul>
+          </section>
+
+          <section class="terms-section">
+            <h2>4. Disclaimer of Financial & Investment Advice</h2>
+            <p><strong>MoneyMap is a financial record-keeping and tracking utility, not a licensed financial advisor, broker, or tax consultant.</strong></p>
+            <ul>
+              <li>Calculations, charts, net worth projections, stock valuations, and mutual fund analytics displayed in the App are for informational and organizational purposes only.</li>
+              <li>Market prices (such as stock bhavcopy and mutual fund NAVs) are retrieved from public endpoints for estimates and may experience delays.</li>
+              <li>You should consult a qualified financial professional before making investment, tax, or legal decisions.</li>
+            </ul>
+          </section>
+
+          <section class="terms-section">
+            <h2>5. Intellectual Property</h2>
+            <p>The software, brand name &ldquo;MoneyMap&rdquo;, visual designs, logos, animations, and source code are the intellectual property of <strong>WidgetTree</strong>. You are granted a limited, personal, non-exclusive, non-transferable license to use the App for personal financial management.</p>
+          </section>
+
+          <section class="terms-section">
+            <h2>6. Limitation of Liability</h2>
+            <p>To the maximum extent permitted by applicable law, WidgetTree and its developers shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the App, inaccuracies in parsed SMS figures, or data loss.</p>
+          </section>
+
+          <section class="terms-section">
+            <h2>7. Changes to Terms</h2>
+            <p>We may update these Terms of Service periodically. Updated versions will be published on our website and within the App documentation. Your continued use of MoneyMap following any updates constitutes acceptance of the new Terms.</p>
+          </section>
+
+          <section class="terms-section">
+            <h2>8. Contact Us</h2>
+            <p>If you have any questions or concerns regarding these Terms of Service, please contact us at:</p>
+            <p><strong>Publisher:</strong> WidgetTree<br><strong>Email:</strong> <a href="mailto:widgettree.dev@gmail.com">widgettree.dev@gmail.com</a></p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="../index.html" class="brand-logo">
+            <div class="brand-mark">
+              <img src="../assets/images/logo.png" alt="MoneyMap Logo">
+            </div>
+            <span>MoneyMap</span>
+          </a>
+          <p>
+            A local-first personal finance application published by <strong>WidgetTree</strong>. 100% user data
+            sovereignty.
+          </p>
+          <div class="footer-contact">
+            Contact: <a href="mailto:widgettree.dev@gmail.com">widgettree.dev@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="footer-nav-groups">
+          <div class="footer-col">
+            <h5>Product</h5>
+            <ul class="footer-links">
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../index.html#features">Features</a></li>
+              <li><a href="../index.html#demo">Live Demo</a></li>
+              <li><a href="../index.html#architecture">Privacy Architecture</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer">Get on Google Play</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal & Publisher</h5>
+            <ul class="footer-links">
+              <li><a href="../privacy/index.html">Privacy Policy</a></li>
+              <li><a href="index.html" style="color: var(--primary);">Terms of Service</a></li>
+              <li><a href="mailto:widgettree.dev@gmail.com">Contact Publisher (WidgetTree)</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 <strong>WidgetTree</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="../index.html">Home</a>
+          <a href="../privacy/index.html">Privacy Policy</a>
+          <a href="index.html" style="color: var(--primary);">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    let currentTheme = localStorage.getItem('moneymap_theme') || 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('moneymap_theme', theme);
+      currentTheme = theme;
+      if (theme === 'light') {
+        themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+      } else {
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        `;
+      }
+    }
+    applyTheme(currentTheme);
+    themeToggleBtn.addEventListener('click', () => {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

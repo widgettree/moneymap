@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyMap by WidgetTree — Private, Local-First Personal Finance & Wealth Management</title>
+  <meta name="description"
+    content="Experience complete financial sovereignty with MoneyMap by WidgetTree. 100% local-first expense tracking, intelligent on-device SMS bank parsing, real-time wealth management, and private Google Drive sync.">
+  <meta name="keywords"
+    content="WidgetTree, MoneyMap, Personal Finance, Expense Tracker, Wealth Management, Private Backup, Google Drive Sync, Local First Finance">
+
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Primary Brand Palette */
+      --primary: #EA6506;
+      --primary-hover: #D85600;
+      --primary-glow: rgba(234, 101, 6, 0.28);
+      --primary-light: #FFF3EB;
+      --accent-coral: #FF6B3D;
+      --accent-emerald: #10B981;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.25);
+      --accent-indigo: #6366F1;
+      --accent-amber: #F59E0B;
+      --accent-rose: #EF4444;
+
+      /* Dark Theme (Default) */
+      --bg-main: #0B0E14;
+      --bg-surface: #121824;
+      --bg-card: rgba(22, 30, 46, 0.75);
+      --bg-card-hover: rgba(28, 38, 58, 0.9);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(234, 101, 6, 0.35);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-subtle: #64748B;
+      --nav-bg: rgba(11, 14, 20, 0.88);
+      --phone-body: #1E293B;
+      --phone-screen: #0F172A;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 20px 35px -5px rgba(0, 0, 0, 0.45);
+      --shadow-glow: 0 0 50px rgba(234, 101, 6, 0.2);
+      --badge-bg: rgba(234, 101, 6, 0.12);
+      --badge-border: rgba(234, 101, 6, 0.3);
+    }
+
+    [data-theme="light"] {
+      --bg-main: #FBFBFA;
+      --bg-surface: #FFFFFF;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #FFFFFF;
+      --border-color: rgba(0, 0, 0, 0.07);
+      --border-glow: rgba(234, 101, 6, 0.3);
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #94A3B8;
+      --nav-bg: rgba(251, 251, 250, 0.9);
+      --phone-body: #E2E8F0;
+      --phone-screen: #F8FAFC;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+      --shadow-glow: 0 0 45px rgba(234, 101, 6, 0.15);
+      --badge-bg: rgba(234, 101, 6, 0.08);
+      --badge-border: rgba(234, 101, 6, 0.25);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(234, 101, 6, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Header & Navigation                                                        */
+    /* -------------------------------------------------------------------------- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px var(--primary-glow);
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--primary);
+      border-radius: 999px;
+      margin-left: 6px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .theme-toggle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-coral) 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px var(--primary-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(234, 101, 6, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-playstore {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 24px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-body);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-playstore:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 12px 28px rgba(234, 101, 6, 0.28);
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    [data-theme="light"] .btn-playstore {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #1E293B;
+    }
+
+    .playstore-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.15;
+    }
+
+    .playstore-small {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .playstore-large {
+      font-size: 1.15rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Hero Section                                                               */
+    /* -------------------------------------------------------------------------- */
+    .hero-section {
+      padding-top: 150px;
+      padding-bottom: 90px;
+      position: relative;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      border-radius: 999px;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.6rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 22px;
+    }
+
+    .hero-title-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-coral) 50%, #FFB088 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 34px;
+      max-width: 580px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .hero-metrics {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .metric-item h4 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .metric-item p {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Phone Mockup                                                               */
+    /* -------------------------------------------------------------------------- */
+    .mockup-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .phone-device {
+      width: 320px;
+      height: 640px;
+      background: var(--phone-body);
+      border-radius: 46px;
+      padding: 12px;
+      box-shadow:
+        0 25px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        var(--shadow-glow);
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .phone-device:hover {
+      transform: translateY(-6px) rotateY(-4deg) rotateX(4deg);
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 22px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .camera-lens {
+      width: 8px;
+      height: 8px;
+      background: #111;
+      border-radius: 50%;
+      border: 1px solid #333;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--phone-screen);
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-screen-header {
+      padding: 44px 16px 12px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .app-title-group h5 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .app-title-group span {
+      font-size: 0.7rem;
+      color: var(--accent-emerald);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .app-title-group span::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .app-screen-body {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .app-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .networth-badge {
+      font-size: 0.7rem;
+      color: var(--text-subtle);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .networth-val {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin: 4px 0 8px;
+    }
+
+    .networth-growth {
+      font-size: 0.75rem;
+      color: var(--accent-emerald);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .app-tab-pills {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .phone-tab-btn {
+      flex: 1;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: transparent;
+      color: var(--text-subtle);
+      transition: all 0.2s ease;
+    }
+
+    .phone-tab-btn.active {
+      background: var(--primary);
+      color: #FFF;
+    }
+
+    .txn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .txn-row:last-child {
+      border-bottom: none;
+    }
+
+    .txn-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .txn-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .txn-text h6 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .txn-text p {
+      font-size: 0.65rem;
+      color: var(--text-subtle);
+    }
+
+    .txn-amount {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .txn-amount.negative {
+      color: var(--accent-rose);
+    }
+
+    .txn-amount.positive {
+      color: var(--accent-emerald);
+    }
+
+    .app-screen-nav {
+      height: 52px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 10px;
+    }
+
+    .app-nav-icon {
+      color: var(--text-subtle);
+      font-size: 1.1rem;
+    }
+
+    .app-nav-icon.active {
+      color: var(--primary);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Features Grid                                                              */
+    /* -------------------------------------------------------------------------- */
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 32px;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-glow);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--primary);
+    }
+
+    .feature-icon-box svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    .feature-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .feature-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Interactive Demos                                                          */
+    /* -------------------------------------------------------------------------- */
+    .interactive-demo-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .demo-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      padding: 36px;
+      backdrop-filter: blur(16px);
+    }
+
+    .demo-panel h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .demo-panel p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .sms-input-box {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .sms-input-box:focus {
+      border-color: var(--primary);
+    }
+
+    .sms-action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .sms-preset-btn {
+      padding: 8px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .sms-preset-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+
+    .sms-result-card {
+      margin-top: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px;
+      display: none;
+    }
+
+    .calc-slider-group {
+      margin-bottom: 20px;
+    }
+
+    .calc-slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .calc-slider-header span.val {
+      font-family: var(--font-mono);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .range-input {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 999px;
+      outline: none;
+      accent-color: var(--primary);
+    }
+
+    .calc-result-box {
+      background: linear-gradient(135deg, rgba(234, 101, 6, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1px solid var(--badge-border);
+      border-radius: 20px;
+      padding: 22px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .calc-result-box h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .calc-result-box .big-wealth {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin: 6px 0;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* Comparison Table                                                           */
+    /* -------------------------------------------------------------------------- */
+    .comparison-table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comparison-table th {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: var(--bg-surface);
+    }
+
+    .comparison-table th.mmap-col {
+      color: var(--primary);
+      background: rgba(234, 101, 6, 0.08);
+      border-left: 1px solid var(--badge-border);
+      border-right: 1px solid var(--badge-border);
+    }
+
+    .comparison-table td.mmap-col {
+      background: rgba(234, 101, 6, 0.03);
+      border-left: 1px solid var(--badge-border);
+      border-right: 1px solid var(--badge-border);
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .check-icon {
+      color: var(--accent-emerald);
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cross-icon {
+      color: var(--accent-rose);
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* FAQ Section                                                                */
+    /* -------------------------------------------------------------------------- */
+    .faq-list {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      background: transparent;
+      text-align: left;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+      padding: 0 28px;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding-bottom: 24px;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* CTA Banner                                                                 */
+    /* -------------------------------------------------------------------------- */
+    .cta-banner {
+      background: linear-gradient(135deg, #1C1510 0%, #0E121B 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: 36px;
+      padding: 70px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cta-title {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .cta-subtitle {
+      font-size: 1.2rem;
+      color: #94A3B8;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 60px 0 32px;
+      margin-top: 100px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 48px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      max-width: 360px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 16px 0 16px;
+      line-height: 1.6;
+    }
+
+    .footer-contact {
+      font-size: 0.88rem;
+      color: var(--text-subtle);
+    }
+
+    .footer-contact a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .footer-nav-groups {
+      display: flex;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      color: var(--text-subtle);
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-cta-group {
+        justify-content: center;
+      }
+
+      .hero-metrics {
+        justify-content: center;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .interactive-demo-container {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .cta-title {
+        font-size: 2.2rem;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .footer-nav-groups {
+        gap: 40px;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Top Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-mark">
+            <img src="assets/images/logo.png" alt="MoneyMap Logo">
+          </div>
+          <div>
+            <span>MoneyMap</span>
+            <!-- <span class="brand-badge">by WidgetTree</span> -->
+          </div>
+        </a>
+
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#demo" class="nav-link">Live Demo</a></li>
+            <li><a href="#architecture" class="nav-link">Privacy Architecture</a></li>
+            <!-- <li><a href="#calculator" class="nav-link">Wealth Engine</a></li> -->
+            <li><a href="privacy/index.html" class="nav-link">Privacy Policy</a></li>
+            <li><a href="terms/index.html" class="nav-link">Terms</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              id="themeIcon">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          </button>
+          <a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 9px 18px; font-size: 0.88rem;">
+            <img src="assets/images/playstore.png" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; display: block;">
+            <span>Google Play</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-layout">
+
+        <div class="hero-content">
+          <div class="hero-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+            </svg>
+            <span>Published by WidgetTree • 100% Local-First</span>
+          </div>
+
+          <h1 class="hero-title">
+            Own Your Wealth.<br>
+            <span class="hero-title-gradient">Protect 100% of Your Privacy.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            The next-generation personal finance tracker by <strong>WidgetTree</strong>. Intelligent on-device bank SMS
+            detection, live mutual fund & stock intelligence, and zero-knowledge sync straight to your own Google Drive.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="btn-playstore">
+              <img src="assets/images/playstore.png" alt="Google Play" style="width: 28px; height: 28px; object-fit: contain; display: block;">
+              <div class="playstore-text">
+                <span class="playstore-small">GET IT ON</span>
+                <span class="playstore-large">Google Play</span>
+              </div>
+            </a>
+           
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <h4>0%</h4>
+              <p>Cloud Server Logins</p>
+            </div>
+            <div class="metric-item">
+              <h4>100%</h4>
+              <p>User Data Ownership</p>
+            </div>
+            <div class="metric-item">
+              <h4>&lt; 50ms</h4>
+              <p>Local On-Device Parsing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="mockup-container">
+          <div class="phone-device">
+            <div class="phone-notch">
+              <div class="camera-lens"></div>
+            </div>
+            <div class="phone-screen">
+              <div class="app-screen-header">
+                <div class="app-title-group">
+                  <h5>MoneyMap</h5>
+                  <span>Local Synced</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-subtle);">09:41</div>
+              </div>
+
+              <div class="app-screen-body">
+                <div class="app-card">
+                  <div class="networth-badge">Total Net Worth</div>
+                  <div class="networth-val" id="phoneNetWorth">₹14,85,420</div>
+                  <div class="networth-growth">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                      <polyline points="17 6 23 6 23 12" />
+                    </svg>
+                    <span>+12.8% this quarter</span>
+                  </div>
+                </div>
+
+                <div class="app-tab-pills">
+                  <button class="phone-tab-btn active" id="tabRecent"
+                    onclick="switchPhoneTab('recent')">Transactions</button>
+                  <button class="phone-tab-btn" id="tabWealth" onclick="switchPhoneTab('wealth')">Assets</button>
+                  <button class="phone-tab-btn" id="tabBackup" onclick="switchPhoneTab('backup')">Drive Sync</button>
+                </div>
+
+                <div id="phoneTabContent">
+                  <div class="app-card" style="padding: 10px 14px;">
+                    <div class="txn-row">
+                      <div class="txn-info">
+                        <div class="txn-icon" style="background: rgba(234, 101, 6, 0.15); color: var(--primary);">☕
+                        </div>
+                        <div class="txn-text">
+                          <h6>Blue Tokai Coffee</h6>
+                          <p>HDFC Bank • UPI</p>
+                        </div>
+                      </div>
+                      <div class="txn-amount negative">-₹340.00</div>
+                    </div>
+                    <div class="txn-row">
+                      <div class="txn-info">
+                        <div class="txn-icon"
+                          style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">💼</div>
+                        <div class="txn-text">
+                          <h6>Consulting Payout</h6>
+                          <p>ICICI Bank • Direct NEFT</p>
+                        </div>
+                      </div>
+                      <div class="txn-amount positive">+₹85,000.00</div>
+                    </div>
+                    <div class="txn-row">
+                      <div class="txn-info">
+                        <div class="txn-icon"
+                          style="background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo);">📈</div>
+                        <div class="txn-text">
+                          <h6>Nifty 50 Index SIP</h6>
+                          <p>Auto-Invest • Wealth</p>
+                        </div>
+                      </div>
+                      <div class="txn-amount negative">-₹15,000.00</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="app-screen-nav">
+                <span class="app-nav-icon active">📊</span>
+                <span class="app-nav-icon">💎</span>
+                <span class="app-nav-icon">🎯</span>
+                <span class="app-nav-icon">⚙️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <!-- <span class="section-tag">ENGINEERED BY WIDGETTREE</span> -->
+        <h2 class="section-title">Built for Performance, Security, and True Sovereignty</h2>
+        <p class="section-desc">
+          Unlike traditional financial apps that sell your data, MoneyMap runs directly on your device with local Hive
+          encryption and user-owned Google Drive storage.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">User-Owned Google Drive Sync</h3>
+          <p class="feature-text">
+            Backups are compressed and saved directly in your personal Google Drive account as <span
+              style="font-family: var(--font-mono); color: var(--primary);">backup.mmbak</span>. No third-party servers
+            ever touch your files.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">On-Device Bank SMS Parsing</h3>
+          <p class="feature-text">
+            Optional, user-controlled SMS reader matching strictly whitelisted Indian bank sender IDs. The original raw
+            SMS text is never uploaded or retained after extraction.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 3v18h18" />
+              <path d="M18 9l-5 5-4-4-6 6" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Bundled Stocks & Mutual Funds</h3>
+          <p class="feature-text">
+            Integrated offline NSE stock master list and daily mutual fund NAV fetcher. None of your portfolio
+            quantities or asset counts are transmitted to external servers.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Recurring & EMIs Tracking</h3>
+          <p class="feature-text">
+            Automate monthly bills, subscriptions, EMIs, and recurring payments with cashflow forecasts up to 12 months
+            in advance.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+              <line x1="7" y1="7" x2="7.01" y2="7" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Granular Tags & Filters</h3>
+          <p class="feature-text">
+            Organize trips, business expenses, home renovations, and personal projects with multi-dimensional tags and
+            fast filter sheets.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Sub-Millisecond Hive Speed</h3>
+          <p class="feature-text">
+            Powered by high-performance local Hive storage. Zero loading spinners, instant queries, and 100% offline
+            usability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Sandbox -->
+  <section class="section" id="demo"
+    style="background: var(--bg-surface); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">INTERACTIVE SANDBOX</span>
+        <h2 class="section-title">Test Drive MoneyMap's Intelligent Core</h2>
+        <p class="section-desc">Try out our client-side SMS banking parser and compound wealth calculator right here in
+          your browser.</p>
+      </div>
+
+      <div class="interactive-demo-container">
+        <!-- SMS Parser -->
+        <div class="demo-panel">
+          <h3><span>📲</span><span>On-Device Bank SMS Parser</span></h3>
+          <p>Watch how MoneyMap automatically extracts amounts, merchants, and accounts locally in real time without
+            cloud transmission.</p>
+
+          <textarea class="sms-input-box" id="smsInput"
+            placeholder="Paste bank SMS here...">Rs. 1,450.00 spent on your HDFC Bank Card ending 4821 at STARBUCKS COFFEE on 15-SEP-26. Avl bal: Rs 42,100.00.</textarea>
+
+          <div class="sms-action-row">
+            <button class="sms-preset-btn" onclick="loadSampleSms('hdfc')">HDFC Sample</button>
+            <button class="sms-preset-btn" onclick="loadSampleSms('sbi')">SBI Salary</button>
+            <button class="sms-preset-btn" onclick="loadSampleSms('icici')">ICICI UPI</button>
+            <button class="btn-primary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="parseSmsLive()">Parse
+              Now</button>
+          </div>
+
+          <div class="sms-result-card" id="smsResultBox" style="display: block;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-emerald);">✓ DETECTED
+                TRANSACTION</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-subtle);">Local
+                Engine</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.88rem;">
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-subtle);">Amount</div>
+                <div style="font-family: var(--font-mono); font-weight: 800; color: var(--accent-rose);" id="resAmount">
+                  -₹1,450.00</div>
+              </div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-subtle);">Merchant</div>
+                <div style="font-weight: 700; color: var(--text-main);" id="resMerchant">STARBUCKS COFFEE</div>
+              </div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-subtle);">Account</div>
+                <div style="font-weight: 600; color: var(--text-main);" id="resBank">HDFC Bank (4821)</div>
+              </div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-subtle);">Category</div>
+                <div style="font-weight: 600; color: var(--primary);" id="resCategory">Food & Dining</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wealth Calculator -->
+        <div class="demo-panel" id="calculator">
+          <h3><span>📈</span><span>Wealth Compounding Engine</span></h3>
+          <p>See how disciplined monthly investing and compound interest grow your total net worth over time.</p>
+
+          <div class="calc-slider-group">
+            <div class="calc-slider-header">
+              <span>Monthly Investment</span>
+              <span class="val" id="monthlyDisp">₹25,000 / mo</span>
+            </div>
+            <input type="range" class="range-input" id="monthlySlider" min="5000" max="150000" step="5000" value="25000"
+              oninput="updateWealthCalc()">
+          </div>
+
+          <div class="calc-slider-group">
+            <div class="calc-slider-header">
+              <span>Expected Annual Return</span>
+              <span class="val" id="returnDisp">12.5% p.a.</span>
+            </div>
+            <input type="range" class="range-input" id="returnSlider" min="6" max="20" step="0.5" value="12.5"
+              oninput="updateWealthCalc()">
+          </div>
+
+          <div class="calc-slider-group">
+            <div class="calc-slider-header">
+              <span>Investment Horizon</span>
+              <span class="val" id="yearsDisp">10 Years</span>
+            </div>
+            <input type="range" class="range-input" id="yearsSlider" min="1" max="30" step="1" value="10"
+              oninput="updateWealthCalc()">
+          </div>
+
+          <div class="calc-result-box">
+            <h4>Estimated Future Net Worth</h4>
+            <div class="big-wealth" id="wealthTotal">₹58,19,428</div>
+            <div style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;" id="wealthGrowthBreakdown">
+              Invested: ₹30,00,000 • Wealth Gain: ₹28,19,428
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Matrix -->
+  <section class="section" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">SECURITY & SOVEREIGNTY</span>
+        <h2 class="section-title">How WidgetTree MoneyMap Protects You</h2>
+        <p class="section-desc">Compare the industry standard data-harvesting model with MoneyMap’s zero-knowledge,
+          local-first architecture.</p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Privacy & Performance Metric</th>
+              <th class="mmap-col">MoneyMap (WidgetTree)</th>
+              <th>Typical Cloud Finance Apps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Where your financial data is stored</strong></td>
+              <td class="mmap-col"><span class="check-icon">✓ Local Hive DB on Device</span></td>
+              <td><span class="cross-icon">✗ Third-party Cloud Servers</span></td>
+            </tr>
+            <tr>
+              <td><strong>Cloud Backup Mechanism</strong></td>
+              <td class="mmap-col"><span class="check-icon">✓ Your Own Private Google Drive</span></td>
+              <td><span class="cross-icon">✗ Company-owned databases</span></td>
+            </tr>
+            <tr>
+              <td><strong>SMS & Bank Data Processing</strong></td>
+              <td class="mmap-col"><span class="check-icon">✓ 100% Local on Device CPU</span></td>
+              <td><span class="cross-icon">✗ Uploaded to Analytics Cloud</span></td>
+            </tr>
+            <tr>
+              <td><strong>Ad Trackers & Profiling</strong></td>
+              <td class="mmap-col"><span class="check-icon">✓ Zero Ads, Zero Data Selling</span></td>
+              <td><span class="cross-icon">✗ Targeted Loan & Card Ads</span></td>
+            </tr>
+            <tr>
+              <td><strong>Works without Internet</strong></td>
+              <td class="mmap-col"><span class="check-icon">✓ 100% Functional Offline</span></td>
+              <td><span class="cross-icon">✗ Fails or Hangs on Bad Connection</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call To Action -->
+  <section class="section" id="download">
+    <div class="container">
+      <div class="cta-banner">
+        <h2 class="cta-title">Take Full Control of Your Financial Future Today</h2>
+        <p class="cta-subtitle">Join users who track wealth with speed, precision, and absolute privacy. Published by
+          <strong>WidgetTree</strong>.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 10px;">
+          <a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="btn-playstore" style="padding: 14px 32px;">
+            <img src="assets/images/playstore.png" alt="Google Play" style="width: 32px; height: 32px; object-fit: contain; display: block;">
+            <div class="playstore-text">
+              <span class="playstore-small">GET IT ON</span>
+              <span class="playstore-large" style="font-size: 1.3rem;">Google Play</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-mark">
+              <img src="assets/images/logo.png" alt="MoneyMap Logo">
+            </div>
+            <span>MoneyMap</span>
+          </a>
+          <p>
+            A local-first personal finance application published by <strong>WidgetTree</strong>. 100% user data
+            sovereignty.
+          </p>
+          <div class="footer-contact">
+            Contact: <a href="mailto:widgettree.dev@gmail.com">widgettree.dev@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="footer-nav-groups">
+          <div class="footer-col">
+            <h5>Product</h5>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#demo">Live Demo</a></li>
+              <li><a href="#architecture">Privacy Architecture</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.widgettree.moneymap&pcampaignid=web_share" target="_blank" rel="noopener noreferrer">Get on Google Play</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal & Publisher</h5>
+            <ul class="footer-links">
+              <li><a href="privacy/index.html">Privacy Policy</a></li>
+              <li><a href="terms/index.html">Terms of Service</a></li>
+              <li><a href="mailto:widgettree.dev@gmail.com">Contact Publisher (WidgetTree)</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 <strong>WidgetTree</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="index.html">Home</a>
+          <a href="privacy/index.html">Privacy Policy</a>
+          <a href="terms/index.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    let currentTheme = localStorage.getItem('moneymap_theme') || 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('moneymap_theme', theme);
+      currentTheme = theme;
+
+      if (theme === 'light') {
+        themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+      } else {
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        `;
+      }
+    }
+
+    applyTheme(currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    function switchPhoneTab(tab) {
+      document.querySelectorAll('.phone-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const content = document.getElementById('phoneTabContent');
+      const networth = document.getElementById('phoneNetWorth');
+
+      if (tab === 'recent') {
+        document.getElementById('tabRecent').classList.add('active');
+        networth.textContent = '₹14,85,420';
+        content.innerHTML = `
+          <div class="app-card" style="padding: 10px 14px;">
+            <div class="txn-row">
+              <div class="txn-info">
+                <div class="txn-icon" style="background: rgba(234, 101, 6, 0.15); color: var(--primary);">☕</div>
+                <div class="txn-text">
+                  <h6>Blue Tokai Coffee</h6>
+                  <p>HDFC Bank • UPI</p>
+                </div>
+              </div>
+              <div class="txn-amount negative">-₹340.00</div>
+            </div>
+            <div class="txn-row">
+              <div class="txn-info">
+                <div class="txn-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">💼</div>
+                <div class="txn-text">
+                  <h6>Consulting Payout</h6>
+                  <p>ICICI Bank • Direct NEFT</p>
+                </div>
+              </div>
+              <div class="txn-amount positive">+₹85,000.00</div>
+            </div>
+            <div class="txn-row">
+              <div class="txn-info">
+                <div class="txn-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo);">📈</div>
+                <div class="txn-text">
+                  <h6>Nifty 50 Index SIP</h6>
+                  <p>Auto-Invest • Wealth</p>
+                </div>
+              </div>
+              <div class="txn-amount negative">-₹15,000.00</div>
+            </div>
+          </div>
+        `;
+      } else if (tab === 'wealth') {
+        document.getElementById('tabWealth').classList.add('active');
+        networth.textContent = '₹14,85,420';
+        content.innerHTML = `
+          <div class="app-card" style="padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 8px;">
+              <span style="color: var(--text-muted);">Equities & MF (58%)</span>
+              <span style="font-weight: 700; color: var(--text-main);">₹8,61,540</span>
+            </div>
+            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 58%; height: 100%; background: var(--primary);"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 8px;">
+              <span style="color: var(--text-muted);">Gold & Bonds (24%)</span>
+              <span style="font-weight: 700; color: var(--text-main);">₹3,56,500</span>
+            </div>
+            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 24%; height: 100%; background: var(--accent-amber);"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+              <span style="color: var(--text-muted);">Liquid Emergency Cash (18%)</span>
+              <span style="font-weight: 700; color: var(--text-main);">₹2,67,380</span>
+            </div>
+          </div>
+        `;
+      } else if (tab === 'backup') {
+        document.getElementById('tabBackup').classList.add('active');
+        content.innerHTML = `
+          <div class="app-card" style="padding: 14px; text-align: center;">
+            <div style="width: 42px; height: 42px; background: rgba(16,185,129,0.15); color: var(--accent-emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem;">✓</div>
+            <h6 style="font-size: 0.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Google Drive Connected</h6>
+            <p style="font-size: 0.7rem; color: var(--text-subtle); margin-bottom: 10px;">user.finance@gmail.com</p>
+            <div style="font-size: 0.68rem; color: var(--text-muted); background: var(--bg-main); padding: 6px; border-radius: 8px;">
+              Folder: MoneyMap • File: backup.mmbak
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    const sampleSmsData = {
+      hdfc: 'Rs. 1,450.00 spent on your HDFC Bank Card ending 4821 at STARBUCKS COFFEE on 15-SEP-26. Avl bal: Rs 42,100.00.',
+      sbi: 'Your A/C ending with 9812 has been credited by Rs 1,12,000.00 towards MONTHLY SALARY on 01-SEP-26. Ref: SBI002931.',
+      icici: 'Sent Rs. 650.00 from ICICI Bank A/C XX3421 to ZOMATO FOOD DELIVERY via UPI Ref 4918239.'
+    };
+
+    function loadSampleSms(key) {
+      document.getElementById('smsInput').value = sampleSmsData[key];
+      parseSmsLive();
+    }
+
+    function parseSmsLive() {
+      const text = document.getElementById('smsInput').value;
+      const resBox = document.getElementById('smsResultBox');
+      const resAmount = document.getElementById('resAmount');
+      const resMerchant = document.getElementById('resMerchant');
+      const resBank = document.getElementById('resBank');
+      const resCategory = document.getElementById('resCategory');
+
+      resBox.style.display = 'block';
+
+      const isCredit = /credited|received|deposit/i.test(text);
+      const amountMatch = text.match(/(?:Rs\.?|INR)\s*([0-9,]+(?:\.[0-9]{2})?)/i);
+
+      let amount = amountMatch ? amountMatch[1] : '500.00';
+      let cleanAmount = (isCredit ? '+₹' : '-₹') + amount;
+
+      let merchant = 'Point of Sale Transaction';
+      let category = 'General Expense';
+      let bank = 'Primary Bank';
+
+      if (/STARBUCKS/i.test(text)) {
+        merchant = 'STARBUCKS COFFEE';
+        category = 'Food & Beverages';
+      } else if (/ZOMATO|SWIGGY/i.test(text)) {
+        merchant = 'Zomato Food Delivery';
+        category = 'Dining & Takeout';
+      } else if (/SALARY/i.test(text)) {
+        merchant = 'Employer Payroll';
+        category = 'Primary Income';
+      }
+
+      if (/HDFC/i.test(text)) bank = 'HDFC Bank (4821)';
+      else if (/SBI/i.test(text)) bank = 'State Bank of India (9812)';
+      else if (/ICICI/i.test(text)) bank = 'ICICI Bank (3421)';
+
+      resAmount.textContent = cleanAmount;
+      resAmount.style.color = isCredit ? 'var(--accent-emerald)' : 'var(--accent-rose)';
+      resMerchant.textContent = merchant;
+      resBank.textContent = bank;
+      resCategory.textContent = category;
+    }
+
+    function updateWealthCalc() {
+      const monthly = parseFloat(document.getElementById('monthlySlider').value);
+      const rateAnnual = parseFloat(document.getElementById('returnSlider').value);
+      const years = parseInt(document.getElementById('yearsSlider').value, 10);
+
+      document.getElementById('monthlyDisp').textContent = '₹' + monthly.toLocaleString('en-IN') + ' / mo';
+      document.getElementById('returnDisp').textContent = rateAnnual.toFixed(1) + '% p.a.';
+      document.getElementById('yearsDisp').textContent = years + (years === 1 ? ' Year' : ' Years');
+
+      const months = years * 12;
+      const i = (rateAnnual / 100) / 12;
+      const fv = monthly * ((Math.pow(1 + i, months) - 1) / i) * (1 + i);
+      const totalInvested = monthly * months;
+      const totalGain = fv - totalInvested;
+
+      document.getElementById('wealthTotal').textContent = '₹' + Math.round(fv).toLocaleString('en-IN');
+      document.getElementById('wealthGrowthBreakdown').textContent =
+        `Invested: ₹${Math.round(totalInvested).toLocaleString('en-IN')} • Wealth Gain: ₹${Math.round(totalGain).toLocaleString('en-IN')}`;
+    }
+
+    updateWealthCalc();
+  </script>
+</body>
+
+</html>
